@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz Website</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+h2 {
+    margin-bottom: 20px;
+}
+.option {
+    margin: 10px 0;
+}
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #4a90e2;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background: #357abd;
+}
+.result {
+    margin-top: 15px;
+    font-weight: bold;
+}
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Info Page -->
+    <div id="infoPage">
+        <h2>About This Quiz</h2>
+        <p>This quiz is designed to test your knowledge of basic computer architecture concepts, including CPU, memory, and storage.  
+        Make sure you understand key terms and the function of each component before starting the quiz!</p>
+        <button onclick="showQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quizPage" class="hidden">
+        <h2 id="question">Question</h2>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+        <div class="result" id="result"></div>
+    </div>
+
+</div>
+
+<script>
+const quiz = [
+    {
+        question: "What does CPU stand for?",
+        options: ["Central Processing Unit", "Computer Personal Unit", "Central Print Unit", "Control Processing Unit"],
+        answer: 0
+    },
+    {
+        question: "Which language is used for web structure?",
+        options: ["CSS", "HTML", "Python", "C++"],
+        answer: 1
+    },
+    {
+        question: "What does RAM stand for?",
+        options: ["Read Access Memory", "Random Access Memory", "Run Active Memory", "Rapid Access Module"],
+        answer: 1
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+// Switch to quiz page
+function showQuiz() {
+    document.getElementById("infoPage").classList.add("hidden");
+    document.getElementById("quizPage").classList.remove("hidden");
+    loadQuestion();
+}
+
+// Load current question
+function loadQuestion() {
+    const q = quiz[currentQuestion];
+    document.getElementById("question").textContent = q.question;
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+    q.options.forEach((option, index) => {
+        const div = document.createElement("div");
+        div.classList.add("option");
+        div.innerHTML = `<input type="radio" name="option" value="${index}"> ${option}`;
+        optionsDiv.appendChild(div);
+    });
+    document.getElementById("result").textContent = "";
+}
+
+// Handle next question
+function nextQuestion() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    if (!selected) return;
+    if (parseInt(selected.value) === quiz[currentQuestion].answer) {
+        score++;
+    }
+    currentQuestion++;
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
+        document.getElementById("quizPage").innerHTML =
+            `<h2>Quiz Finished!</h2>
+             <p>Your score: ${score} / ${quiz.length}</p>
+             <button onclick="location.reload()">Restart</button>`;
+    }
+}
+</script>
+
+</body>
+</html>

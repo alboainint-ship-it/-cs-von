@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Quiz on Computer Architecture</title>
+<title>Von Neumann Architecture Quiz</title>
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -15,18 +15,14 @@ body {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    width: 600px;
+    width: 700px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-h2 {
-    margin-bottom: 15px;
-}
-h3 {
-    margin-bottom: 10px;
-}
-.option {
-    margin: 10px 0;
-}
+h2 { margin-bottom: 15px; }
+h3 { margin-bottom: 10px; }
+h4 { margin-bottom: 5px; }
+p, li { margin-bottom: 8px; }
+.option { margin: 10px 0; }
 button {
     margin-top: 15px;
     padding: 10px 15px;
@@ -36,43 +32,77 @@ button {
     color: white;
     cursor: pointer;
 }
-button:hover {
-    background: #357abd;
-}
-.result {
-    margin-top: 15px;
-    font-weight: bold;
-}
+button:hover { background: #357abd; }
+.result { margin-top: 15px; font-weight: bold; }
 .hidden { display: none; }
-.info-section p {
-    margin-bottom: 10px;
-}
+.info-section ul { margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- Info Section -->
+    <!-- Detailed Info Section -->
     <div id="infoSection" class="info-section">
-        <h2>About Von Neumann Architecture</h2>
-        <p>The <strong>Von Neumann Architecture</strong>, designed by <strong>John von Neumann</strong>, is the foundation of most modern computers. It is also called the <em>stored-program architecture</em>.</p>
-        <h3>Key Idea:</h3>
-        <p>Data and instructions are stored in the same memory. The CPU fetches instructions and data from this memory one at a time.</p>
-        <h3>Main Components:</h3>
+        <h2>Von Neumann Architecture</h2>
+        <p>The <strong>Von Neumann Architecture</strong> was designed in 1945 by <strong>John von Neumann</strong>. It is a model for designing digital computers and is also called the <em>stored-program architecture</em>.</p>
+
+        <h3>Historical Context</h3>
+        <p>Before Von Neumann’s design, computers had separate memory for instructions and data. Von Neumann proposed storing both in the same memory, which allowed programs to be more flexible and machines to be programmable.</p>
+
+        <h3>Key Concept</h3>
+        <p>The main idea is that both data and program instructions reside in the same memory. The CPU fetches instructions and data sequentially using a single bus.</p>
+
+        <h3>Main Components</h3>
         <ul>
-            <li><strong>Memory Unit:</strong> Stores both instructions and data</li>
-            <li><strong>Control Unit (CU):</strong> Directs operations and fetches instructions</li>
-            <li><strong>Arithmetic Logic Unit (ALU):</strong> Performs calculations and logic operations</li>
-            <li><strong>Input Unit:</strong> Receives data from the outside world</li>
-            <li><strong>Output Unit:</strong> Sends results to the user</li>
+            <li><strong>Memory Unit:</strong> Stores both data and instructions. Can be primary memory (RAM) or secondary storage (disk).</li>
+            <li><strong>Control Unit (CU):</strong> Directs the flow of data between the CPU, memory, and I/O devices. It decodes instructions and issues control signals.</li>
+            <li><strong>Arithmetic Logic Unit (ALU):</strong> Performs arithmetic operations (add, subtract, multiply, divide) and logical operations (AND, OR, NOT, comparisons).</li>
+            <li><strong>Input Unit:</strong> Accepts input from external devices (keyboard, mouse, sensors).</li>
+            <li><strong>Output Unit:</strong> Sends processed data to display, printer, or other devices.</li>
+            <li><strong>Registers:</strong> Small, fast storage inside the CPU. Examples: Program Counter (PC), Memory Address Register (MAR), Memory Data Register (MDR), Accumulator (ACC), Instruction Register (IR).</li>
         </ul>
-        <h3>Fetch–Decode–Execute Cycle:</h3>
-        <p>1. <strong>Fetch:</strong> Get instruction from memory<br>
-           2. <strong>Decode:</strong> Understand the instruction<br>
-           3. <strong>Execute:</strong> Perform the instruction</p>
-        <h3>Bottleneck:</h3>
-        <p>Instructions and data share the same memory and bus. The CPU can only access one at a time, which can slow down processing.</p>
+
+        <h3>Instruction Cycle (Fetch-Decode-Execute)</h3>
+        <ol>
+            <li><strong>Fetch:</strong> The CPU fetches the instruction from memory using the Program Counter to find the address.</li>
+            <li><strong>Decode:</strong> The Control Unit decodes the instruction to determine the operation and operands.</li>
+            <li><strong>Execute:</strong> The ALU or other components execute the operation.</li>
+        </ol>
+        <p>Example: To add two numbers stored in memory locations A and B:</p>
+        <ol>
+            <li>Fetch instruction “ADD A, B”.</li>
+            <li>Decode the instruction to understand operands and operation.</li>
+            <li>Read data from memory locations A and B into registers.</li>
+            <li>Perform addition in the ALU.</li>
+            <li>Store the result back in memory or register.</li>
+        </ol>
+
+        <h3>Bottleneck</h3>
+        <p>Since instructions and data share the same bus and memory, only one can be accessed at a time. This causes the <strong>Von Neumann Bottleneck</strong>, which slows the CPU. Modern computers reduce this effect with caches and pipelines.</p>
+
+        <h3>Advantages</h3>
+        <ul>
+            <li>Simple and easy to design and build.</li>
+            <li>Flexible: can store multiple programs in memory.</li>
+            <li>Sequential instruction execution is straightforward.</li>
+            <li>Memory can be reprogrammed for different tasks.</li>
+        </ul>
+
+        <h3>Disadvantages</h3>
+        <ul>
+            <li>CPU often waits for memory access due to shared bus.</li>
+            <li>Performance limited by memory speed (bottleneck).</li>
+            <li>Not optimal for parallel processing.</li>
+        </ul>
+
+        <h3>Applications</h3>
+        <ul>
+            <li>Used in nearly all general-purpose computers today.</li>
+            <li>Basis for programming languages and operating systems design.</li>
+            <li>Early supercomputers and modern desktops/laptops follow this architecture.</li>
+        </ul>
+
         <button onclick="startQuiz()">Start Quiz</button>
     </div>
 
@@ -88,34 +118,20 @@ button:hover {
 
 <script>
 const quiz = [
-    {
-        question: "What does CPU stand for?",
-        options: ["Central Processing Unit", "Computer Personal Unit", "Central Print Unit", "Control Processing Unit"],
-        answer: 0
-    },
-    {
-        question: "Which language is used for web structure?",
-        options: ["CSS", "HTML", "Python", "C++"],
-        answer: 1
-    },
-    {
-        question: "What does RAM stand for?",
-        options: ["Read Access Memory", "Random Access Memory", "Run Active Memory", "Rapid Access Module"],
-        answer: 1
-    }
+    { question: "What does CPU stand for?", options: ["Central Processing Unit","Computer Personal Unit","Central Print Unit","Control Processing Unit"], answer: 0 },
+    { question: "Which language is used for web structure?", options: ["CSS","HTML","Python","C++"], answer: 1 },
+    { question: "What does RAM stand for?", options: ["Read Access Memory","Random Access Memory","Run Active Memory","Rapid Access Module"], answer: 1 }
 ];
 
 let currentQuestion = 0;
 let score = 0;
 
-// Start Quiz
 function startQuiz() {
     document.getElementById("infoSection").classList.add("hidden");
     document.getElementById("quizSection").classList.remove("hidden");
     loadQuestion();
 }
 
-// Load current question
 function loadQuestion() {
     const q = quiz[currentQuestion];
     document.getElementById("question").textContent = q.question;
@@ -130,20 +146,15 @@ function loadQuestion() {
     document.getElementById("result").textContent = "";
 }
 
-// Next Question
 function nextQuestion() {
     const selected = document.querySelector('input[name="option"]:checked');
-    if (!selected) return; // Do nothing if nothing is selected
-    if (parseInt(selected.value) === quiz[currentQuestion].answer) {
-        score++;
-    }
+    if (!selected) return;
+    if (parseInt(selected.value) === quiz[currentQuestion].answer) score++;
     currentQuestion++;
-    if (currentQuestion < quiz.length) {
-        loadQuestion();
-    } else {
+    if (currentQuestion < quiz.length) loadQuestion();
+    else {
         document.getElementById("quizSection").innerHTML =
-            `<h2>Quiz Finished!</h2>
-             <p>Your score: ${score} / ${quiz.length}</p>
+            `<h2>Quiz Finished!</h2><p>Your score: ${score} / ${quiz.length}</p>
              <button onclick="location.reload()">Restart Quiz</button>`;
     }
 }
